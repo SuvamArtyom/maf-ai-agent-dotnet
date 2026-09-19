@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591;MEAI001</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Microsoft Agentic Framework (MAF) -->
+    <PackageReference Include="Microsoft.Agents.AI" Version="1.21.0" />
+    <PackageReference Include="Microsoft.Agents.AI.Abstractions" Version="1.21.0" />
+    <PackageReference Include="Microsoft.Agents.AI.Workflows" Version="1.21.0" />
+    
+    <!-- Google Cloud & Vertex AI / Discovery Engine for Chunk RAG -->
+    <PackageReference Include="Google.Cloud.AIPlatform.V1" Version="3.66.0" />
+    <PackageReference Include="Google.Cloud.DiscoveryEngine.V1" Version="1.14.0" />
+    <PackageReference Include="Google.Cloud.VertexAI.Extensions" Version="1.0.0-beta08" />
+
+    <!-- OpenAPI / Swagger & Logging -->
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="8.1.4" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.3" />
+    <PackageReference Include="Serilog.Extensions.Hosting" Version="8.0.0" />
+  </ItemGroup>
+
+</Project>
