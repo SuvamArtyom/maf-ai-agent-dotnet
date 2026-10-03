@@ -1,4 +1,5 @@
 using AIAgent.WebApi.DomainLayer.Modules.Common;
+using AIAgent.WebApi.Infrastructure.Agents;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -113,8 +114,11 @@ static void ConfigureDependencyInjection(IServiceCollection services)
     // Common Primitives
     services.AddSingleton<IEnvironmentService, EnvironmentService>();
 
+    // Infrastructure Layer (MAF Agent Factory)
+    services.AddScoped<IAgentFactory, AgentFactory>();
+
     // Layer Placeholders (Populated progressively in upcoming episodes)
-    // - Infrastructure (AgentFactory, DiscoveryEngineSearchService, GcpDataStoreRetriever) -> Episodes 3, 5, 7, 9
+    // - Infrastructure (DiscoveryEngineSearchService, GcpDataStoreRetriever) -> Episodes 7, 9
     // - DomainLayer (ChatSessionContext, ChatHistoryProvider, Mappers) -> Episodes 10, 11
     // - ServiceLayer (KnowledgeAgentService) -> Episode 12
 }
