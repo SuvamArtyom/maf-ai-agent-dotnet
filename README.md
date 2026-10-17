@@ -16,7 +16,7 @@ Each episode in the course corresponds to a dedicated git tag/branch in this rep
 | **01** | Architecture Blueprint & Course Overview | [▶️ Watch Video](https://youtu.be/TD_rMSwciDg?si=xRUqrbn5_dpsdik4) | — *(Architecture)* | 🎬 Released |
 | **02** | Baseline Solution Setup & Clean Architecture | [▶️ Watch Video](https://youtu.be/LIFi0ktOtVw?si=lm9o1XglKL58-aRN) | [`episode-02-base-setup`](https://github.com/SuvamArtyom/maf-ai-agent-dotnet/tree/episode-02-base-setup) | 🎬 Released |
 | **03** | First MAF Agent in C# with `IChatClient` | 🔜 Coming Soon | [`episode-03-hello-agent`](https://github.com/SuvamArtyom/maf-ai-agent-dotnet/tree/episode-03-hello-agent) | 🎬 Released |
-| **04** | Prompt Engineering as Code: Personas & Input Guardrails | — | `episode-04-prompt-and-guardrails` | 🔜 Upcoming |
+| **04** | Prompt Engineering as Code: Personas & Input Guardrails | [▶️ Watch Video](https://youtu.be/h0fJGUPC_pQ) | `episode-04-prompt-and-guardrails` | 🔜 Upcoming |
 | **05** | Agent Tooling & Function Calling (`AIFunctionFactory`) | — | `episode-05-agent-tooling` | 🔜 Upcoming |
 | **06** | Enterprise Document RAG: Why Chunks Beat Snippets | — | `episode-06-rag-theory` | 🔜 Upcoming |
 | **07** | Vector & Layout Chunk Search via Discovery Engine | — | `episode-07-chunk-search-service` | 🔜 Upcoming |
