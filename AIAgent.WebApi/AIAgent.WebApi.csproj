@@ -13,6 +13,7 @@
     <PackageReference Include="Microsoft.Agents.AI" Version="1.21.0" />
     <PackageReference Include="Microsoft.Agents.AI.Abstractions" Version="1.21.0" />
     <PackageReference Include="Microsoft.Agents.AI.Workflows" Version="1.21.0" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.6" />
     
     <!-- Google Cloud & Vertex AI / Discovery Engine for Chunk RAG -->
     <PackageReference Include="Google.Cloud.AIPlatform.V1" Version="3.66.0" />
