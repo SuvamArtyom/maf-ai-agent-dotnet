@@ -63,7 +63,7 @@ public class KnowledgeAgentController : ControllerBase
         string projectId = _environmentService.GetValue("GCP_PROJECT_ID");
         string location = _environmentService.GetValue("GCP_LOCATION", "us-central1");
         string publisherId = _environmentService.GetValue("MODEL_PUBLISHERID", "google");
-        string modelName = _environmentService.GetValue("MODEL_LLM", "gemini-2.5-flash");
+        string modelName = _environmentService.GetValue("MODEL_LLM", "gemini-3.8-flash");
 
         if (string.IsNullOrWhiteSpace(projectId) || projectId.Equals("your-gcp-project-id", StringComparison.OrdinalIgnoreCase))
         {
