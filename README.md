@@ -14,8 +14,8 @@ Each episode in the course corresponds to a dedicated git tag/branch in this rep
 | Episode | Title & Topic | Git Tag / Branch Link | Status |
 |:---:|---|:---:|:---:|
 | **01** | Architecture Blueprint & Course Overview | `episode-01-intro` | 🎬 Released |
-| **02** | Baseline Solution Setup & Clean Architecture | [`episode-02-base-setup`](https://github.com/SuvamArtyom/maf-ai-agent-dotnet/tree/episode-02-base-setup) | 🚀 Active |
-| **03** | First MAF Agent in C# with `IChatClient` | `episode-03-hello-agent` | 🔜 Upcoming |
+| **02** | Baseline Solution Setup & Clean Architecture | [`episode-02-base-setup`](https://github.com/SuvamArtyom/maf-ai-agent-dotnet/tree/episode-02-base-setup) | 🎬 Released |
+| **03** | First MAF Agent in C# with `IChatClient` | [`episode-03-hello-agent`](https://github.com/SuvamArtyom/maf-ai-agent-dotnet/tree/episode-03-hello-agent) | 🚀 Active |
 | **04** | Prompt Engineering as Code: Personas & Input Guardrails | `episode-04-prompt-and-guardrails` | 🔜 Upcoming |
 | **05** | Agent Tooling & Function Calling (`AIFunctionFactory`) | `episode-05-agent-tooling` | 🔜 Upcoming |
 | **06** | Enterprise Document RAG: Why Chunks Beat Snippets | `episode-06-rag-theory` | 🔜 Upcoming |
