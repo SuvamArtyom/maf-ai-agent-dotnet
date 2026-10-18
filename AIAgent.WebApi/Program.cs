@@ -1,5 +1,6 @@
 using AIAgent.WebApi.DomainLayer.Modules.Common;
 using AIAgent.WebApi.Infrastructure.Agents;
+using AIAgent.WebApi.Infrastructure.ToolsAgent;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -114,7 +115,8 @@ static void ConfigureDependencyInjection(IServiceCollection services)
     // Common Primitives
     services.AddSingleton<IEnvironmentService, EnvironmentService>();
 
-    // Infrastructure Layer (MAF Agent Factory)
+    // Infrastructure Layer (MAF Agent Factory & Tool Providers)
+    services.AddScoped<IToolsAgent, ToolsAgent>();
     services.AddScoped<IAgentFactory, AgentFactory>();
 
     // Layer Placeholders (Populated progressively in upcoming episodes)

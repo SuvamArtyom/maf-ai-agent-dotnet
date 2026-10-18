@@ -95,6 +95,7 @@ public class KnowledgeAgentController : ControllerBase
                 .BuildIChatClientAsync(endpoint);
 
             IChatClient chatClient = new ChatClientBuilder(baseClient)
+                .UseFunctionInvocation()
                 .Build();
 
             ChatClientAgent agent = _agentFactory.CreateKnowledgeAssistantAgent(chatClient);

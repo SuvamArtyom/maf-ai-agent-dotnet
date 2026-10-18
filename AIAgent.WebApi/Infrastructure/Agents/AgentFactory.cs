@@ -1,3 +1,4 @@
+using AIAgent.WebApi.Infrastructure.ToolsAgent;
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
 
@@ -9,6 +10,7 @@ namespace AIAgent.WebApi.Infrastructure.Agents;
 public class AgentFactory : IAgentFactory
 {
     private readonly ILogger<AgentFactory> _logger;
+    private readonly IToolsAgent _tools;
     private readonly string _knowledgeAssistantInstructions;
 
     /// <summary>
@@ -16,16 +18,18 @@ public class AgentFactory : IAgentFactory
     /// Loads system instructions dynamically from markdown files (Prompt Engineering as Code).
     /// </summary>
     /// <param name="logger">Structured logger instance.</param>
-    public AgentFactory(ILogger<AgentFactory> logger)
+    /// <param name="tools">Tools agent providing callable functions for the agent.</param>
+    public AgentFactory(ILogger<AgentFactory> logger, IToolsAgent tools)
     {
         _logger = logger;
+        _tools = tools;
         _knowledgeAssistantInstructions = LoadInstructions("KnowledgeAssistant.md");
     }
 
     /// <inheritdoc />
     public ChatClientAgent CreateKnowledgeAssistantAgent(IChatClient client, ChatResponseFormat? chatResponseFormat = null)
     {
-        _logger.LogInformation("Assembling KnowledgeAssistant agent with markdown system instructions.");
+        _logger.LogInformation("Assembling KnowledgeAssistant agent with markdown system instructions and tool definitions.");
 
         return client.AsAIAgent(new ChatClientAgentOptions
         {
@@ -34,7 +38,18 @@ public class AgentFactory : IAgentFactory
             ChatOptions = new ChatOptions
             {
                 Instructions = _knowledgeAssistantInstructions,
-                ResponseFormat = chatResponseFormat
+                ResponseFormat = chatResponseFormat,
+                Tools =
+                [
+                    AIFunctionFactory.Create(
+                        _tools.SearchDocumentsAsync,
+                        nameof(_tools.SearchDocumentsAsync),
+                        _tools.Descriptions(nameof(IToolsAgent.SearchDocumentsAsync))),
+                    AIFunctionFactory.Create(
+                        _tools.GetCurrentUtcDateTime,
+                        nameof(_tools.GetCurrentUtcDateTime),
+                        _tools.Descriptions(nameof(IToolsAgent.GetCurrentUtcDateTime)))
+                ]
             }
         });
     }
