@@ -18,7 +18,7 @@ Each episode in the course corresponds to a dedicated git tag/branch in this rep
 | **03** | First MAF Agent in C# with `IChatClient` | 🔜 Coming Soon | [`episode-03-hello-agent`](https://github.com/SuvamArtyom/maf-ai-agent-dotnet/tree/episode-03-hello-agent) | 🎬 Released |
 | **04** | Prompt Engineering as Code: Personas & Input Guardrails | [▶️ Watch Video](https://youtu.be/h0fJGUPC_pQ) | [`episode-04-prompt-and-guardrails`](https://github.com/SuvamArtyom/maf-ai-agent-dotnet/tree/episode-04-prompt-and-guardrails) | 🎬 Released |
 | **05** | Agent Tooling & Function Calling (`AIFunctionFactory`) | 🔜 Coming Soon | [`episode-05-agent-tooling`](https://github.com/SuvamArtyom/maf-ai-agent-dotnet/tree/episode-05-agent-tooling) | 🎬 Released |
-| **06** | Enterprise Document RAG: Why Chunks Beat Snippets | — | `episode-06-rag-theory` | 🔜 Upcoming |
+| **06** | Enterprise Document RAG: Why Chunks Beat Snippets | 🔜 Coming Soon | [`episode-06-rag-theory`](https://github.com/SuvamArtyom/maf-ai-agent-dotnet/tree/episode-06-rag-theory) | 🎬 Released |
 | **07** | Vector & Layout Chunk Search via Discovery Engine | — | `episode-07-chunk-search-service` | 🔜 Upcoming |
 | **08** | Document Metadata Resolution & Performance Caching | — | `episode-08-metadata-enrichment` | 🔜 Upcoming |
 | **09** | Layout Chunk Retriever: Assembling Structured Context | — | `episode-09-chunk-retriever` | 🔜 Upcoming |
@@ -31,7 +31,7 @@ Each episode in the course corresponds to a dedicated git tag/branch in this rep
 
 > 💡 **Tip for Viewers**: If you clone the `main` branch, you will see the latest state of the codebase. To view the exact code for any episode, checkout its tag:
 > ```bash
-> git checkout episode-05-agent-tooling
+> git checkout episode-06-rag-theory
 > ```
 
 ---
