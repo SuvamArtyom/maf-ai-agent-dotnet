@@ -1,3 +1,4 @@
+using AIAgent.WebApi.DomainLayer.Modules.Agents;
 using AIAgent.WebApi.DomainLayer.Modules.Common;
 using AIAgent.WebApi.Infrastructure.Agents;
 using AIAgent.WebApi.Infrastructure.ToolsAgent;
@@ -83,7 +84,8 @@ builder.Services.AddSwaggerGen(options =>
     }
 });
 
-// 6. Dependency Injection Registration
+// 6. Datastore Options & Dependency Injection Registration
+builder.Services.Configure<DatastoreOptions>(builder.Configuration.GetSection(DatastoreOptions.SectionName));
 ConfigureDependencyInjection(builder.Services);
 
 var app = builder.Build();
@@ -114,6 +116,9 @@ static void ConfigureDependencyInjection(IServiceCollection services)
 {
     // Common Primitives
     services.AddSingleton<IEnvironmentService, EnvironmentService>();
+
+    // Domain Services (Chunk Layout Formatting & RAG Utilities)
+    services.AddSingleton<IChunkLayoutFormatter, ChunkLayoutFormatter>();
 
     // Infrastructure Layer (MAF Agent Factory & Tool Providers)
     services.AddScoped<IToolsAgent, ToolsAgent>();

@@ -1,4 +1,7 @@
 using System.ComponentModel;
+using AIAgent.WebApi.DomainLayer.Modules.Agents;
+using AIAgent.WebApi.DomainLayer.Modules.Common;
+using Microsoft.Extensions.Options;
 
 namespace AIAgent.WebApi.Infrastructure.ToolsAgent;
 
@@ -8,14 +11,23 @@ namespace AIAgent.WebApi.Infrastructure.ToolsAgent;
 public class ToolsAgent : IToolsAgent
 {
     private readonly ILogger<ToolsAgent> _logger;
+    private readonly IChunkLayoutFormatter _chunkFormatter;
+    private readonly DatastoreOptions _options;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ToolsAgent"/> class.
     /// </summary>
     /// <param name="logger">Structured logger instance.</param>
-    public ToolsAgent(ILogger<ToolsAgent> logger)
+    /// <param name="chunkFormatter">Layout chunk formatter service for assembling grounded context.</param>
+    /// <param name="options">Datastore configuration options.</param>
+    public ToolsAgent(
+        ILogger<ToolsAgent> logger,
+        IChunkLayoutFormatter chunkFormatter,
+        IOptions<DatastoreOptions> options)
     {
         _logger = logger;
+        _chunkFormatter = chunkFormatter;
+        _options = options.Value;
     }
 
     /// <inheritdoc />
@@ -47,21 +59,46 @@ public class ToolsAgent : IToolsAgent
             return $"Current UTC System Time is: {DateTime.UtcNow:yyyy-MM-dd HH:mm:ss} UTC.";
         }
 
-        // Return structured enterprise knowledge chunks matching the layout-based chunking format
-        return $"""
-            [Doc ID: Enterprise_Architecture_Guidelines.md]
-            # Architecture Standards > ## AI Agent Integration
-            1. All enterprise AI agents must be built on .NET 10 using the Microsoft Agentic Framework (MAF) and Google Gemini Enterprise.
-            2. System instructions must be managed as Prompts-as-Code using Markdown files with strict input guardrails.
-            3. All external tool calls must be registered via AIFunctionFactory and validated defensively.
-            4. Retrieval-Augmented Generation (RAG) must prioritize layout-based chunks over legacy snippet fallback.
+        // Layout chunks with ancestor headings and sliding context (pre-Discovery Engine SDK in Episode 7)
+        List<LayoutChunk> sampleChunks =
+        [
+            new LayoutChunk
+            {
+                ChunkId = "chunk-arch-001",
+                DocumentId = "Enterprise_Architecture_Guidelines.md",
+                DocumentTitle = "Enterprise Architecture Standards",
+                DocumentUri = "gs://enterprise-knowledge-vault/Enterprise_Architecture_Guidelines.md",
+                AncestorHeadings = ["Enterprise Architecture Standards", "AI Agent Framework Requirements"],
+                Content = """
+                    1. Agents must be built on .NET 10 using Microsoft Agentic Framework (MAF) and Google Gemini Enterprise.
+                    2. Prompts as Code: All system prompts, personas, and guardrails must be maintained in version-controlled Markdown files.
+                    3. Native Function Calling: Dynamic agent capabilities must use AIFunctionFactory.Create and .UseFunctionInvocation().
+                    4. Retrieval-Augmented Generation (RAG): Must operate on pure layout-based chunks (500 tokens) with sliding context window expansion.
+                    """,
+                PreviousChunks = ["# Document Overview: Enterprise Architecture Standards v1.0"],
+                NextChunks = ["Architecture Layer Matrix table defining Controllers, ServiceLayer, DomainLayer, and Infrastructure."],
+                RelevanceScore = 0.95
+            },
+            new LayoutChunk
+            {
+                ChunkId = "chunk-sec-002",
+                DocumentId = "Security_Compliance_Standards.md",
+                DocumentTitle = "Enterprise Security & Compliance Standards",
+                DocumentUri = "gs://enterprise-knowledge-vault/Security_Compliance_Standards.md",
+                AncestorHeadings = ["Enterprise Security Standards", "Safe AI Execution Policies"],
+                Content = """
+                    1. Input Sanitization & Screening: Inbound user queries must be screened against enterprise guardrails.
+                    2. Confidentiality & Data Perimeter: No corporate data or proprietary source code may leave the cloud perimeter.
+                    3. Secret Management: Credentials and keys must never appear in LLM responses or prompt context.
+                    """,
+                PreviousChunks = ["# Security Policy Overview: Enterprise Data Classification"],
+                NextChunks = ["Data Classification Matrix: Public, Internal Enterprise, Confidential, Restricted."],
+                RelevanceScore = 0.91
+            }
+        ];
 
-            [Doc ID: Security_Compliance_Standards.md]
-            # Compliance > ## Safe AI Execution
-            1. Enterprise agents must screen for out-of-scope entertainment, coding trivia, or prompt-injection attempts.
-            2. Confidential company data must remain within the organization's cloud perimeter.
-            3. Never expose credentials, API keys, or internal private tokens in LLM responses.
-            """;
+        // Format chunks through pure layout chunk assembler with sliding windows
+        return _chunkFormatter.FormatChunks(sampleChunks, _options.MaxCharacterLimit);
     }
 
     /// <inheritdoc />
@@ -75,4 +112,3 @@ public class ToolsAgent : IToolsAgent
         };
     }
 }
-
